@@ -7,7 +7,7 @@ Hello World to Rust
 ## Contents
 
 - [Install](#install)
-- [Run](#run)
+- [Create New Project](#create-new-project)
 
 ## Install
 
@@ -19,12 +19,21 @@ asdf install rust 1.61.0
 asdf global rust 1.61.0
 ```
 
-## Run
-
-`cd` into one of the directories and run:
+## Create New Project
 
 ```bash
-rustc main.rs
-chmod a+x main
-./main
+# create new project
+cargo new http-client
+
+# write code
+
+# compile debug version and execute
+cargo build
+./target/debug/http-client
+
+# or composition of those commands
+cargo run
+
+# when ready for production
+cargo build --release
 ```
