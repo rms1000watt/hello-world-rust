@@ -3,17 +3,23 @@ use reqwest;
 fn main() {
   println!("Hello, world!");
 
-  let res = reqwest::blocking::get("https://www.rust-lang.org");
-  if res.is_err() {
-    println!("found error");
-    return;
-  }
+  // ref: https://www.reddit.com/r/learnrust/comments/v3sjwg/comment/ib0avhz
+  let result = reqwest::blocking::get("https://www.rust-lang.org");
+  let response = match result {
+    Ok(response) => response,
+    Err(e) => {
+      println!("failed making request {}", e);
+      return;
+    }
+  };
 
+  let text = match response.text() {
+    Ok(text) => text,
+    Err(e) => {
+      println!("failed getting text {}", e);
+      return;
+    }
+  };
 
-
-  // println!("body = {:?}", body);
-
-  // let resp = reqwest::blocking::get("https://httpbin.org/ip")?.text()?;
-  // println!("{:#?}", resp);
-  // Ok(())
+  println!("{}",text);
 }
