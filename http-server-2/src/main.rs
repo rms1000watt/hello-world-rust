@@ -14,9 +14,8 @@ async fn greet2(name: web::Path<String>) -> impl Responder {
 async fn main() -> std::io::Result<()> {
     // TODO: cli tool for passing in args
 
-    let bind = match HttpServer::new(|| App::new().service(greet).service(greet2))
-        .bind(("127.0.0.1", 8080))
-    {
+    let app = || App::new().service(greet).service(greet2);
+    let bind = match HttpServer::new(app).bind(("127.0.0.1", 8080)) {
         Ok(bind) => bind,
         Err(e) => {
             println!("failed bind {}", e);
