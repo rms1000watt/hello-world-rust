@@ -8,6 +8,7 @@ Hello World to Rust
 
 - [Install](#install)
 - [Create New Project](#create-new-project)
+- [Example Web Server](#example-web-server)
 
 ## Install
 
@@ -37,3 +38,12 @@ cargo run
 # when ready for production
 cargo build --release
 ```
+
+## Example Web Server
+
+https://github.com/actix/examples/tree/master/basics/nested-routing
+
+
+## TODO
+
+- make a nested project structure example
