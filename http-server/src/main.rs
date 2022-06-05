@@ -10,12 +10,16 @@ async fn greet2(name: web::Path<String>) -> impl Responder {
     format!("hi {name}!")
 }
 
-#[actix_web::main] // or #[tokio::main]
+#[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    // TODO: undo ? with explicit match
-    // TODO: cli tool for passing in args
-    HttpServer::new(|| App::new().service(greet).service(greet2))
-        .bind(("127.0.0.1", 8080))?
-        .run()
-        .await
+    let app = || App::new().service(greet).service(greet2);
+    let bind = match HttpServer::new(app).bind(("127.0.0.1", 8080)) {
+        Ok(bind) => bind,
+        Err(e) => {
+            println!("failed bind {}", e);
+            return Err(e);
+        }
+    };
+
+    return bind.workers(2).run().await;
 }
